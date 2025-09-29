@@ -1,7 +1,9 @@
+// src/Pages/Home.jsx
 import React, { useState, useEffect } from "react";
 import { products } from "../Data/products";
 import ProductCard from "../components/ProductCard";
 import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 import Filters from "../components/Filters";
 
 const Home = () => {
@@ -38,7 +40,18 @@ const Home = () => {
 
   return (
     <div>
-      <Header cartCount={cartCount} setCartCount={setCartCount} />
+      {/* Header with search + cart */}
+      <Header cartCount={cartCount} />
+
+      {/* Navbar categories */}
+      <Navbar />
+
+      {/* Banner */}
+      <div className="w-full h-64 bg-gradient-to-r from-blue-400 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold">
+        Big Sale! Up to 50% Off
+      </div>
+
+      {/* Main Section */}
       <div className="flex p-4 gap-4">
         {/* Filters Sidebar */}
         <Filters filters={filters} setFilters={setFilters} />

@@ -33,21 +33,19 @@ const Header = ({ cartCount }) => {
           Flipkart
         </Link>
 
-       {/* Search bar */}
-<div className="flex-1 mx-4 relative">
-  <input
-    type="text"
-    placeholder="Search for products, brands and more"
-    className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-300 bg-white text-gray-800 shadow-sm 
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
-               hover:shadow-md transition-shadow"
-  />
-  {/* Magnifying glass icon */}
-  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-    🔍
-  </span>
-</div>
-
+        {/* Search bar */}
+        <div className="flex-1 mx-4 relative">
+          <input
+            type="text"
+            placeholder="Search for products, brands and more"
+            className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-300 bg-white text-gray-800 shadow-sm 
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                       hover:shadow-md transition-shadow"
+          />
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            🔍
+          </span>
+        </div>
 
         {/* Right side: Login / Cart */}
         <div className="flex items-center gap-4">

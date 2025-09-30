@@ -1,7 +1,17 @@
 export const products = [
-  { id: 1, name: "Apple iPhone 14", category: "Smartphone", price: 79999, rating: 4.5, image: "/images/images4.jpg", description: "Apple iPhone 14 with A15 Bionic chip, 6GB RAM, 128GB Storage" },
-  { id: 2, name: "Dell Inspiron Laptop", category: "Laptop", price: 55999, rating: 4.2, image: "/images/images4.jpg", description: "Dell Inspiron 15 with Intel i5, 16GB RAM, 512GB SSD" },
-  { id: 3, name: "Sony WH-1000XM5", category: "Headphones", price: 24999, rating: 4.6, image: "/images/images4.jpg", description: "Sony Noise Cancelling Headphones with 30-hour battery life" },
-  { id: 4, name: "Samsung Galaxy Watch 5", category: "Smart Watch", price: 15999, rating: 4.3, image: "/images/images4.jpg", description: "Samsung Galaxy Watch 5 with health tracking and AMOLED display" },
-  { id: 5, name: "Nike Air Max Shoes", category: "Shoes", price: 10999, rating: 4.4, image: "/images/images4.jpg", description: "Nike Air Max comfortable running shoes" }
+  { id: 1, name: "iPhone 14", category: "Electronics", type: "Smartphones", price: 79999, rating: 4.5, image: "/images/iphone14.jpg" },
+  { id: 2, name: "Samsung Galaxy S23", category: "Electronics", type: "Smartphones", price: 69999, rating: 4.4, image: "/images/galaxys23.jpg" },
+  { id: 3, name: "OnePlus 11", category: "Electronics", type: "Smartphones", price: 49999, rating: 4.3, image: "/images/oneplus11.jpg" },
+  { id: 4, name: "Dell XPS 13", category: "Electronics", type: "Laptops", price: 109999, rating: 4.7, image: "/images/dellxps.jpg" },
+  { id: 5, name: "MacBook Air M2", category: "Electronics", type: "Laptops", price: 129999, rating: 4.8, image: "/images/macbookair.jpg" },
+  { id: 6, name: "HP Spectre x360", category: "Electronics", type: "Laptops", price: 99999, rating: 4.6, image: "/images/hpspectre.jpg" },
+  { id: 7, name: "Sony WH-1000XM5", category: "Electronics", type: "Headphones", price: 29999, rating: 4.8, image: "/images/sonyheadphones.jpg" },
+  { id: 8, name: "Bose QuietComfort 45", category: "Electronics", type: "Headphones", price: 24999, rating: 4.7, image: "/images/boseqc45.jpg" },
+  { id: 9, name: "Apple AirPods Pro 2", category: "Electronics", type: "Headphones", price: 24999, rating: 4.6, image: "/images/airpodspro2.jpg" },
+  { id: 10, name: "Apple Watch Series 8", category: "Electronics", type: "Smart Watches", price: 39999, rating: 4.5, image: "/images/applewatch8.jpg" },
+  { id: 11, name: "Samsung Galaxy Watch 5", category: "Electronics", type: "Smart Watches", price: 29999, rating: 4.4, image: "/images/galaxywatch5.jpg" },
+  { id: 12, name: "Fitbit Sense 2", category: "Electronics", type: "Smart Watches", price: 24999, rating: 4.3, image: "/images/fitbitsense2.jpg" },
+  { id: 13, name: "Lenovo ThinkPad X1", category: "Electronics", type: "Laptops", price: 119999, rating: 4.6, image: "/images/thinkpadx1.jpg" },
+  { id: 14, name: "Google Pixel 7", category: "Electronics", type: "Smartphones", price: 59999, rating: 4.4, image: "/images/pixel7.jpg" },
+  { id: 15, name: "Beats Studio3", category: "Electronics", type: "Headphones", price: 19999, rating: 4.5, image: "/images/beatsstudio3.jpg" },
 ];

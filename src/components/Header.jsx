@@ -28,10 +28,15 @@ const Header = ({ cartCount }) => {
       )}
 
       <header className="bg-blue-600 p-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="text-white font-bold text-2xl">
-          Flipkart
-        </Link>
+  {/* Logo */}
+<Link to="/" className="flex items-center">
+  <img
+    src="/images.png"
+    alt="Flipkart Logo"
+    className="w-14 h-14 object-cover rounded-full transition-transform duration-300 hover:scale-105 shadow-lg"
+  />
+</Link>
+
 
         {/* Search bar */}
         <div className="flex-1 mx-4 relative">

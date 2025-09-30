@@ -11,6 +11,14 @@ const Home = () => {
   const [filters, setFilters] = useState({
     price: 100000,
     category: "",
+    brand: "",
+    discount: "",
+    type: "",
+    newArrival: false,
+    offers: false,
+    fit: "",
+    occasion: "",
+    availability: "",
     rating: 1,
   });
 
@@ -30,29 +38,42 @@ const Home = () => {
     alert(`${product.name} added to cart!`);
   };
 
-  // Apply filters
-  const filteredProducts = products.filter(
-    (p) =>
-      p.price <= filters.price &&
-      (filters.category === "" || p.category === filters.category) &&
-      p.rating >= filters.rating
-  );
+  // Apply all filters
+  const filteredProducts = products.filter((p) => {
+    if (p.price > filters.price) return false;
+    if (filters.category && p.category !== filters.category) return false;
+    if (filters.brand && p.brand !== filters.brand) return false;
+    if (filters.discount && p.discount !== filters.discount) return false;
+    if (filters.type && p.type !== filters.type) return false;
+    if (filters.newArrival && !p.newArrival) return false;
+    if (filters.offers && !p.offers) return false;
+    if (filters.fit && p.fit !== filters.fit) return false;
+    if (filters.occasion && p.occasion !== filters.occasion) return false;
+    if (filters.availability && p.availability !== filters.availability)
+      return false;
+    if (p.rating < filters.rating) return false;
+    return true;
+  });
 
   return (
     <div>
-      {/* Header with search + cart */}
+      {/* Header */}
       <Header cartCount={cartCount} />
 
-      {/* Navbar categories */}
+      {/* Navbar */}
       <Navbar />
 
-      {/* Banner */}
-      <div className="w-full h-64 bg-gradient-to-r from-blue-400 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold">
-        Big Sale! Up to 50% Off
+      {/* Banner Image */}
+      <div className="w-full h-64 mt-4">
+        <img
+          src="/image3.jpg"
+          alt="Big Sale Banner"
+          className="w-full h-full object-cover rounded-lg shadow-md"
+        />
       </div>
 
       {/* Main Section */}
-      <div className="flex p-4 gap-4">
+      <div className="flex p-4 gap-4 mt-4">
         {/* Filters Sidebar */}
         <Filters filters={filters} setFilters={setFilters} />
 

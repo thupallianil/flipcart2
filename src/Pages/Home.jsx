@@ -1,7 +1,7 @@
 // src/Pages/Home.jsx
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { products } from "../Data/products";
+import ProductCard from "../components/ProductCard";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Filters from "../components/Filters";
@@ -22,6 +22,7 @@ const Home = () => {
     rating: 1,
   });
 
+  // Load cart count from localStorage on first render
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
@@ -37,46 +38,50 @@ const Home = () => {
     alert(`${product.name} added to cart!`);
   };
 
+  // Apply all filters
   const filteredProducts = products.filter((p) => {
     if (p.price > filters.price) return false;
     if (filters.category && p.category !== filters.category) return false;
-    if (filters.rating && p.rating < filters.rating) return false;
+    if (filters.brand && p.brand !== filters.brand) return false;
+    if (filters.discount && p.discount !== filters.discount) return false;
+    if (filters.type && p.type !== filters.type) return false;
+    if (filters.newArrival && !p.newArrival) return false;
+    if (filters.offers && !p.offers) return false;
+    if (filters.fit && p.fit !== filters.fit) return false;
+    if (filters.occasion && p.occasion !== filters.occasion) return false;
+    if (filters.availability && p.availability !== filters.availability)
+      return false;
+    if (p.rating < filters.rating) return false;
     return true;
   });
 
   return (
     <div>
+      {/* Header */}
       <Header cartCount={cartCount} />
+
+      {/* Navbar */}
       <Navbar />
 
-      {/* Banner */}
+      {/* Banner Image */}
       <div className="w-full h-64 mt-4">
         <img
-          src="https://rukminim1.flixcart.com/flap/960/960/image/5ef9c21fdbd6d6ea.jpg?q=50"
-          alt="Banner"
+          src="/image3.jpg"
+          alt="Big Sale Banner"
           className="w-full h-full object-cover rounded-lg shadow-md"
         />
       </div>
 
+      {/* Main Section */}
       <div className="flex p-4 gap-4 mt-4">
+        {/* Filters Sidebar */}
         <Filters filters={filters} setFilters={setFilters} />
 
+        {/* Products Grid */}
         <main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-1">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((p) => (
-              <Link
-                key={p.id}
-                to={`/product/${p.id}`}
-                className="border p-2 rounded hover:shadow-lg transition"
-              >
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-40 object-contain mb-2"
-                />
-                <h3 className="text-sm font-medium">{p.name}</h3>
-                <p className="text-sm text-gray-600">₹{p.price}</p>
-              </Link>
+              <ProductCard key={p.id} product={p} addToCart={addToCart} />
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500">
@@ -89,4 +94,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home; 

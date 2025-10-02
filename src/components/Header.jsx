@@ -43,8 +43,8 @@ const Header = ({ cartCount }) => {
           <input
             type="text"
             placeholder="Search for products, brands and more"
-            className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-300 bg-white text-gray-800 shadow-sm 
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+            className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-100 bg-white text-gray-800 shadow-sm 
+                       focus:outline-none focus:ring-2 focus:ring-black-500 focus:border-blue-500 
                        hover:shadow-md transition-shadow"
           />
           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">

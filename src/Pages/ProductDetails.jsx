@@ -1,142 +1,81 @@
 // src/Pages/ProductDetails.jsx
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useParams, Link } from "react-router-dom";
 import { products } from "../Data/products";
 import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === parseInt(id));
 
-  const [cartCount, setCartCount] = useState(0);
-  const [activeTab, setActiveTab] = useState("features");
+  if (!product) return <div className="p-4">Product not found!</div>;
 
-  // Load cart count from localStorage
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
-  }, []);
-
-  // Add product to cart (without alert)
-  const addToCart = () => {
-    if (!product) return;
-
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItem = cart.find((item) => item.id === product.id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
-  };
-
-  if (!product) {
-    return (
-      <p className="text-red-500 p-4 text-center font-semibold">
-        Product not found.
-      </p>
-    );
-  }
+  const relatedProducts = products.filter(
+    (p) => p.subcategory === product.subcategory && p.id !== product.id
+  );
 
   return (
     <div>
-      <Header cartCount={cartCount} />
+      <Header />
+      <Navbar />
 
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded shadow mt-4">
-        {/* Top Section */}
+      <div className="p-4">
         <div className="flex flex-col md:flex-row gap-6">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full md:w-1/2 h-72 object-cover rounded border"
+            className="w-full md:w-1/3 h-64 object-contain border p-2"
           />
-          <div className="flex-1">
+
+          <div className="md:w-2/3">
             <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-            <p className="text-blue-600 text-xl font-semibold mb-2">
-              ₹{product.price}
-            </p>
-            <p className="text-yellow-500 mb-4">{product.rating} ★</p>
-            <p className="text-gray-700 mb-4">{product.description}</p>
+            <p className="mb-1"><strong>Category:</strong> {product.category}</p>
+            <p className="mb-1"><strong>Subcategory:</strong> {product.subcategory}</p>
+            <p className="mb-1"><strong>Price:</strong> ₹{product.price}</p>
+            <p className="mb-1"><strong>Rating:</strong> {product.rating} ⭐</p>
+            <p className="mb-2"><strong>Description:</strong> {product.description}</p>
 
-            <button
-              onClick={addToCart}
-              className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition"
-            >
-              Add to Cart
-            </button>
+            <h3 className="font-semibold">Features:</h3>
+            <ul className="list-disc list-inside mb-2">
+              {product.features.map((f, i) => (
+                <li key={i}>{f}</li>
+              ))}
+            </ul>
+
+            <h3 className="font-semibold">Reviews:</h3>
+            <ul className="list-disc list-inside">
+              {product.reviews.map((r, i) => (
+                <li key={i}>
+                  <strong>{r.user}:</strong> {r.comment} ({r.rating}⭐)
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-8">
-          <div className="flex gap-6 border-b pb-2">
-            {["features", "reviews", "responses"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`font-semibold ${
-                  activeTab === tab
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                {tab === "features"
-                  ? "Features"
-                  : tab === "reviews"
-                  ? "Reviews"
-                  : "Customer Q&A"}
-              </button>
-            ))}
+        {relatedProducts.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl font-bold mb-4">Related Products</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedProducts.map((p) => (
+                <Link
+                  key={p.id}
+                  to={`/product/${p.id}`}
+                  className="border p-2 rounded hover:shadow-lg transition"
+                >
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-32 object-contain mb-2"
+                  />
+                  <p className="text-sm font-medium">{p.name}</p>
+                  <p className="text-sm text-gray-600">₹{p.price}</p>
+                </Link>
+              ))}
+            </div>
           </div>
-
-          {/* Tab Content */}
-          <div className="mt-4">
-            {activeTab === "features" && (
-              <ul className="list-disc list-inside text-gray-700 space-y-2">
-                {product.features?.length > 0
-                  ? product.features.map((f, idx) => <li key={idx}>{f}</li>)
-                  : "No features available."}
-              </ul>
-            )}
-
-            {activeTab === "reviews" && (
-              <div className="space-y-3">
-                {product.reviews?.length > 0
-                  ? product.reviews.map((r, idx) => (
-                      <div
-                        key={idx}
-                        className="border p-3 rounded bg-gray-50 shadow-sm"
-                      >
-                        <p className="font-semibold">{r.user}</p>
-                        <p className="text-yellow-500">{r.rating} ★</p>
-                        <p>{r.comment}</p>
-                      </div>
-                    ))
-                  : "No reviews yet."}
-              </div>
-            )}
-
-            {activeTab === "responses" && (
-              <div className="space-y-3">
-                {product.responses?.length > 0
-                  ? product.responses.map((res, idx) => (
-                      <div
-                        key={idx}
-                        className="border p-3 rounded bg-gray-50 shadow-sm"
-                      >
-                        <p className="font-semibold">{res.question}</p>
-                        <p className="text-gray-600">{res.answer}</p>
-                      </div>
-                    ))
-                  : "No customer questions yet."}
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

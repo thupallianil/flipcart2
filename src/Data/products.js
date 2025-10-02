@@ -33,20 +33,20 @@ export const products = [
     price: 49999,
     rating: 4.3,
     description: "OnePlus flagship with Snapdragon 8 Gen 2.",
-    image: "https://image01.oneplus.net/ebp/202301/13/1-m00-1b-7b-rb8bwlz7g2caa7dgaaa8f8j9bqk251.png",
+    image: "data:image/jpeg;base64,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",
     features: ["6.7-inch Fluid AMOLED display", "Snapdragon 8 Gen 2", "Triple-camera system"],
     reviews: [{ user: "Kiran", rating: 5, comment: "Fast and smooth!" }],
     responses: [{ question: "Fast charging?", answer: "Yes, 100W." }]
   },
   {
     id: 4,
-    name: "Dell XPS 13",
+    name: "Dell 13XPS ",
     category: "Electronics",
     subcategory: "Laptops",
     price: 109999,
     rating: 4.7,
     description: "Compact and powerful laptop.",
-    image: "https://i.dell.com/sites/csimages/Merchandizing_Imagery/all/xps-13-9310-laptop-campaign-hero.png",
+    image: "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/hermano/verge/product/image/10098/236524_Dell_XPS_13_AKrales_0016.jpg?quality=90&strip=all&crop=0,0,100,100",
     features: ["13.4-inch FHD display", "Intel Core i7", "16GB RAM, 512GB SSD"],
     reviews: [{ user: "Ramesh", rating: 5, comment: "Excellent laptop!" }],
     responses: [{ question: "Thunderbolt ports?", answer: "Yes, two ports." }]
@@ -59,7 +59,7 @@ export const products = [
     price: 129999,
     rating: 4.8,
     description: "Apple's lightweight laptop with M2 chip.",
-    image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-spacegray-select-20220606?wid=2000&hei=1536&fmt=jpeg&qlt=80&.v=1653493200207",
+    image: "https://saruk.co.ke/_next/image?url=https%3A%2F%2Fsaruk-web-images.s3.eu-north-1.amazonaws.com%2F61Y4etoOl5L._AC_SL1500_.jpg&w=3840&q=75",
     features: ["13.6-inch Retina display", "Apple M2 chip", "8GB RAM, 256GB SSD"],
     reviews: [{ user: "Anita", rating: 5, comment: "Super fast!" }],
     responses: [{ question: "Photoshop smooth?", answer: "Yes." }]
@@ -72,7 +72,7 @@ export const products = [
     price: 29999,
     rating: 4.8,
     description: "Noise-canceling headphones.",
-    image: "https://www.sony.com/image/wh1000xm5-b.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNIcGOzevju20v3cFPw2Vfu4aXMnpO965dfg&s",
     features: ["Active Noise Cancellation", "30-hour battery", "Touch controls"],
     reviews: [{ user: "Vikram", rating: 5, comment: "Best noise cancellation!" }],
     responses: [{ question: "Phone calls?", answer: "Yes." }]
@@ -85,7 +85,7 @@ export const products = [
     price: 39999,
     rating: 4.5,
     description: "Advanced health tracking.",
-    image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MQ733_VW_34FR+watch-44-alum-silver-cell-8s_VW_34FR_WF_CO_GEO_IN?wid=2000&hei=1536&fmt=jpeg&qlt=80&.v=1660830081217",
+    image: "https://images.mobilefun.co.uk/graphics/450pixelp/99724.jpg",
     features: ["Blood Oxygen & ECG", "Always-on Retina display", "Fitness tracking"],
     reviews: [{ user: "Meera", rating: 5, comment: "Love the features!" }],
     responses: [{ question: "Supports LTE?", answer: "Yes." }]
@@ -111,7 +111,7 @@ export const products = [
     price: 11999,
     rating: 4.7,
     description: "Premium running shoes.",
-    image: "https://assets.adidas.com/images/w_600,f_auto,q_auto/ultraboost-22-shoes.jpg",
+    image: "https://assets.adidas.com/images/w_600,f_auto,q_auto/fd578c0a32864e5492d04ff9763bd7d6_9366/Ultraboost_1.0_Shoes_Black_JQ5902_HM3_hover.jpg",
     features: ["Boost cushioning", "Breathable mesh", "Rubber sole"],
     reviews: [{ user: "Sneha", rating: 4, comment: "Great for running!" }],
     responses: [{ question: "Color options?", answer: "Black, White, Grey" }]
@@ -124,7 +124,7 @@ export const products = [
     price: 59999,
     rating: 4.3,
     description: "Reliable daily-use laptop.",
-    image: "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c06573272.png",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5cIUeCYtrjKdaqEPTZeBrBLdYnLL8J-D3pg&s",
     features: ["Intel i5", "8GB RAM, 512GB SSD", "15.6-inch display"],
     reviews: [{ user: "Amit", rating: 4, comment: "Good value." }],
     responses: [{ question: "Warranty?", answer: "1 year." }]
@@ -137,7 +137,7 @@ export const products = [
     price: 44999,
     rating: 4.4,
     description: "High performance Android tablet.",
-    image: "https://images.samsung.com/is/image/samsung/p6pim/in/galaxy-tab-s8-5g-412189-sm-x700nzaainu-530409460?$684_547_PNG$",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlxaNokYBCz8edMEuDFHFqpWTw8jJyhaKCKQ&s",
     features: ["11-inch display", "Snapdragon 8 Gen 1", "S Pen included"],
     reviews: [{ user: "Neha", rating: 5, comment: "Perfect for work!" }],
     responses: [{ question: "Supports LTE?", answer: "Yes." }]
@@ -150,7 +150,7 @@ export const products = [
     price: 79999,
     rating: 4.6,
     description: "4K Ultra HD Smart TV.",
-    image: "https://www.sony.co.in/image/wh1000xm5-b.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUhsTEqytfjAg2ozDY-2D0e750_yW9_75UdA&s",
     features: ["4K HDR", "Smart TV apps", "Dolby Audio"],
     reviews: [{ user: "Ramesh", rating: 5, comment: "Amazing display!" }],
     responses: [{ question: "Wall mount?", answer: "Yes." }]
@@ -163,7 +163,7 @@ export const products = [
     price: 25999,
     rating: 4.5,
     description: "Double door fridge with smart inverter.",
-    image: "https://www.lg.com/in/images/refrigerators/md07519868/gallery/01.jpg",
+    image: "data:image/jpeg;base64,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",
     features: ["Smart inverter", "Frost free", "Energy efficient"],
     reviews: [{ user: "Sonia", rating: 5, comment: "Works great!" }],
     responses: [{ question: "Warranty?", answer: "1 year." }]

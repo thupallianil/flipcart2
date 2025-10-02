@@ -11,23 +11,36 @@ const ProductDetails = () => {
   const [cartCount, setCartCount] = useState(0);
   const [activeTab, setActiveTab] = useState("features");
 
+  // Load cart count from localStorage
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
   }, []);
 
+  // Add product to cart (without alert)
   const addToCart = () => {
+    if (!product) return;
+
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find((item) => item.id === product.id);
-    if (existing) existing.quantity += 1;
-    else cart.push({ ...product, quantity: 1 });
+    const existingItem = cart.find((item) => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
     localStorage.setItem("cart", JSON.stringify(cart));
     setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
-    alert(`${product.name} added to cart!`);
   };
 
-  if (!product)
-    return <p className="text-red-500 p-4">Product not found.</p>;
+  if (!product) {
+    return (
+      <p className="text-red-500 p-4 text-center font-semibold">
+        Product not found.
+      </p>
+    );
+  }
 
   return (
     <div>
@@ -51,7 +64,7 @@ const ProductDetails = () => {
 
             <button
               onClick={addToCart}
-              className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition"
             >
               Add to Cart
             </button>
@@ -61,36 +74,23 @@ const ProductDetails = () => {
         {/* Tabs */}
         <div className="mt-8">
           <div className="flex gap-6 border-b pb-2">
-            <button
-              className={`${
-                activeTab === "features"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600"
-              } font-semibold`}
-              onClick={() => setActiveTab("features")}
-            >
-              Features
-            </button>
-            <button
-              className={`${
-                activeTab === "reviews"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600"
-              } font-semibold`}
-              onClick={() => setActiveTab("reviews")}
-            >
-              Reviews
-            </button>
-            <button
-              className={`${
-                activeTab === "responses"
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-600"
-              } font-semibold`}
-              onClick={() => setActiveTab("responses")}
-            >
-              Customer Q&A
-            </button>
+            {["features", "reviews", "responses"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`font-semibold ${
+                  activeTab === tab
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-600"
+                }`}
+              >
+                {tab === "features"
+                  ? "Features"
+                  : tab === "reviews"
+                  ? "Reviews"
+                  : "Customer Q&A"}
+              </button>
+            ))}
           </div>
 
           {/* Tab Content */}

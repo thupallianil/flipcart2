@@ -20,7 +20,7 @@ const Welcome = ({ onFinish }) => {
 
   return (
     <div
-      className={`w-screen h-screen flex items-center justify-center bg-blue-300 transition-opacity duration-500 ${
+      className={`w-screen h-screen flex items-center justify-center bg-blue-600 transition-opacity duration-500 ${
         fade ? "opacity-0" : "opacity-100"
       }`}
     >

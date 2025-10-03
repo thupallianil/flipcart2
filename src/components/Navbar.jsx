@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const categories = {
   Electronics: ["Smartphones", "Laptops", "Headphones", "Smart Watches"],
   Fashion: ["Men's Clothing", "Women's Clothing", "Shoes", "Accessories"],
-  Home: ["Furniture", "Decor", "Kitchenware", "Lighting"],
+  House: ["Furniture", "Decor", "Kitchenware", "Lighting"],
   Appliances: ["Refrigerators", "Washing Machines", "Microwaves", "Air Conditioners"],
   Beauty: ["Makeup", "Skincare", "Haircare", "Fragrances"],
 };

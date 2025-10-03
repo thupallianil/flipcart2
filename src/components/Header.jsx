@@ -3,11 +3,34 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
 
-const Header = ({ cartCount }) => {
+const Header = () => {
+  const [cartCount, setCartCount] = useState(0);
   const [loggedInUser, setLoggedInUser] = useState(
     () => JSON.parse(localStorage.getItem("loggedInUser")) || null
   );
   const [showAuth, setShowAuth] = useState(false);
+
+  // Update cart count from localStorage
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
+  };
+
+  useEffect(() => {
+    // Initial load
+    updateCartCount();
+
+    // Listen for custom cart update events
+    window.addEventListener("cartUpdated", updateCartCount);
+
+    // Listen for storage changes in multi-tab
+    window.addEventListener("storage", updateCartCount);
+
+    return () => {
+      window.removeEventListener("cartUpdated", updateCartCount);
+      window.removeEventListener("storage", updateCartCount);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
@@ -28,23 +51,22 @@ const Header = ({ cartCount }) => {
       )}
 
       <header className="bg-blue-600 p-3 flex items-center justify-between">
-  {/* Logo */}
-<Link to="/" className="flex items-center">
-  <img
-    src="/images.png"
-    alt="Flipkart Logo"
-    className="w-14 h-14 object-cover rounded-full transition-transform duration-300 hover:scale-105 shadow-lg"
-  />
-</Link>
-
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img
+            src="/images.png" // Place your logo in public folder
+            alt="MyStore Logo"
+            className="w-14 h-14 object-cover rounded-full transition-transform duration-300 hover:scale-105 shadow-lg"
+          />
+        </Link>
 
         {/* Search bar */}
         <div className="flex-1 mx-4 relative">
           <input
             type="text"
             placeholder="Search for products, brands and more"
-            className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-100 bg-white text-gray-800 shadow-sm 
-                       focus:outline-none focus:ring-2 focus:ring-black-500 focus:border-blue-500 
+            className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-gray-100 bg-white text-gray-800 shadow-sm
+                       focus:outline-none focus:ring-2 focus:ring-black focus:border-blue-500
                        hover:shadow-md transition-shadow"
           />
           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -68,25 +90,25 @@ const Header = ({ cartCount }) => {
             </>
           ) : (
             <button
-  onClick={() => setShowAuth(true)}
-  className="bg-white p-2 rounded-full hover:bg-gray-100 flex items-center justify-center shadow-sm transition duration-200"
->
-  <img
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-73YNUZt3zveEGFloAazgPMgDUdsS-070BA&s"   // ✅ Save your user logo inside `public/user.png`
-    alt="User"
-    className="w-7 h-7 object-contain"
-  />
-</button>
-
-
+              onClick={() => setShowAuth(true)}
+              className="bg-white p-2 rounded-full hover:bg-gray-100 flex items-center justify-center shadow-sm transition duration-200"
+            >
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-73YNUZt3zveEGFloAazgPMgDUdsS-070BA&s"
+                alt="User"
+                className="w-7 h-7 object-contain"
+              />
+            </button>
           )}
 
           {/* Cart */}
           <Link to="/cart" className="relative text-white font-semibold">
             Cart
-            <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 rounded-full">
-              {cartCount}
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 rounded-full">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </div>
       </header>

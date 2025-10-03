@@ -68,11 +68,17 @@ const Header = ({ cartCount }) => {
             </>
           ) : (
             <button
-              onClick={() => setShowAuth(true)}
-              className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-200"
-            >
-              Login
-            </button>
+  onClick={() => setShowAuth(true)}
+  className="bg-white p-2 rounded-full hover:bg-gray-100 flex items-center justify-center shadow-sm transition duration-200"
+>
+  <img
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-73YNUZt3zveEGFloAazgPMgDUdsS-070BA&s"   // ✅ Save your user logo inside `public/user.png`
+    alt="User"
+    className="w-7 h-7 object-contain"
+  />
+</button>
+
+
           )}
 
           {/* Cart */}

@@ -208,22 +208,6 @@ const Header = () => {
                       <User size={18} /> My Profile
                     </Link>
                   </li>
-
-                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <Crown size={18} /> Flipkart Plus Zone
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <Package size={18} /> Orders
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <Heart size={18} /> Wishlist
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <Star size={18} /> Rewards
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <Gift size={18} /> Gift Cards
-                  </li>
                 </ul>
 
                 {loggedInUser && (

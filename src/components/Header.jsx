@@ -1,7 +1,7 @@
-// src/components/Header.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
+import { User, Heart, Gift, Package, Star, Crown } from "lucide-react";
 
 const Header = () => {
   const [cartCount, setCartCount] = useState(0);
@@ -9,6 +9,7 @@ const Header = () => {
     () => JSON.parse(localStorage.getItem("loggedInUser")) || null
   );
   const [showAuth, setShowAuth] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // Update cart count from localStorage
   const updateCartCount = () => {
@@ -17,13 +18,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Initial load
     updateCartCount();
-
-    // Listen for custom cart update events
     window.addEventListener("cartUpdated", updateCartCount);
-
-    // Listen for storage changes in multi-tab
     window.addEventListener("storage", updateCartCount);
 
     return () => {
@@ -50,13 +46,13 @@ const Header = () => {
         />
       )}
 
-      <header className="bg-blue-600 p-3 flex items-center justify-between">
+      <header className="bg-blue-600 p-3 flex items-center justify-between relative">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
-            src="/images.png" // Place your logo in public folder
-            alt="MyStore Logo"
-            className="w-14 h-14 object-cover rounded-full transition-transform duration-300 hover:scale-105 shadow-lg"
+            src="/images.png"
+            alt="Logo"
+            className="w-14 h-14 object-cover rounded-full hover:scale-105 transition-transform"
           />
         </Link>
 
@@ -74,35 +70,76 @@ const Header = () => {
           </span>
         </div>
 
-        {/* Right side: Login / Cart */}
-        <div className="flex items-center gap-4">
-          {loggedInUser ? (
-            <>
-              <span className="text-white font-semibold">
-                Hello, {loggedInUser.username}
-              </span>
-              <button
-                onClick={handleLogout}
-                className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-200"
-              >
-                Logout
+        {/* Right section */}
+        <div className="flex items-center gap-6 text-white font-medium relative">
+          {/* Login Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            {loggedInUser ? (
+              <button className="bg-white text-blue-600 px-4 py-1 rounded-md">
+                {loggedInUser.username}
               </button>
-            </>
-          ) : (
-            <button
-              onClick={() => setShowAuth(true)}
-              className="bg-white p-2 rounded-full hover:bg-gray-100 flex items-center justify-center shadow-sm transition duration-200"
-            >
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-73YNUZt3zveEGFloAazgPMgDUdsS-070BA&s"
-                alt="User"
-                className="w-7 h-7 object-contain"
-              />
-            </button>
-          )}
+            ) : (
+              <button className="bg-white text-blue-600 px-4 py-1 rounded-md">
+                Login
+              </button>
+            )}
+
+            {/* Dropdown */}
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-60 bg-white text-gray-700 rounded-lg shadow-lg p-4 z-50">
+                {!loggedInUser ? (
+                  <div className="border-b pb-3 mb-3">
+                    <p className="text-sm">
+                      New customer?{" "}
+                      <button
+                        onClick={() => setShowAuth(true)}
+                        className="text-blue-600 font-semibold"
+                      >
+                        Sign Up
+                      </button>
+                    </p>
+                  </div>
+                ) : null}
+
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <User size={18} /> My Profile
+                  </li>
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <Crown size={18} /> Flipkart Plus Zone
+                  </li>
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <Package size={18} /> Orders
+                  </li>
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <Heart size={18} /> Wishlist
+                  </li>
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <Star size={18} /> Rewards
+                  </li>
+                  <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+                    <Gift size={18} /> Gift Cards
+                  </li>
+                </ul>
+
+                {loggedInUser && (
+                  <button
+                    onClick={handleLogout}
+                    className="mt-3 text-sm text-red-600 font-semibold hover:underline"
+                  >
+                    Logout
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* Cart */}
-          <Link to="/cart" className="relative text-white font-semibold">
+          <Link to="/cart" className="relative">
             Cart
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 rounded-full">

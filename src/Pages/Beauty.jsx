@@ -1,7 +1,7 @@
-// src/Pages/Beauty.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
+import { addToCart } from "../utils/cart"; // Import cart helper
 
 // 9 Example products per subcategory
 const beautyData = {
@@ -37,7 +37,7 @@ const beautyData = {
     { id: 25, name: "Leave-in Conditioner", price: 599, image: "https://via.placeholder.com/150" },
     { id: 26, name: "Dry Shampoo", price: 399, image: "https://via.placeholder.com/150" },
     { id: 27, name: "Hair Gel", price: 299, image: "https://via.placeholder.com/150" },
-  ],
+  ], 
   Fragrances: [
     { id: 28, name: "Perfume", price: 1999, image: "https://via.placeholder.com/150" },
     { id: 29, name: "Body Mist", price: 699, image: "https://via.placeholder.com/150" },
@@ -63,6 +63,11 @@ const Beauty = () => {
     }
   }, [subcategory]);
 
+  // Add to cart handler
+  const handleAddToCart = (product) => {
+    addToCart(product); // This updates localStorage and dispatches cartUpdated event
+  };
+
   return (
     <div>
       <Header />
@@ -87,7 +92,10 @@ const Beauty = () => {
                 />
                 <h3 className="text-lg font-semibold">{product.name}</h3>
                 <p className="text-gray-600">₹{product.price}</p>
-                <button className="mt-3 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">
+                <button
+                  onClick={() => handleAddToCart(product)}
+                  className="mt-3 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition"
+                >
                   Add to Cart
                 </button>
               </div>

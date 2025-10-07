@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { addToCart, getCartCount } from "../utils/cart";
 
-// Example Appliances products
-const appliancesData = {
+// ✅ Named export for appliance products data
+export const appliancesData = {
   Refrigerators: [
     { id: 1, name: "Double Door Fridge", price: 35000, image: "https://via.placeholder.com/150" },
     { id: 2, name: "Single Door Fridge", price: 22000, image: "https://via.placeholder.com/150" },
@@ -66,8 +66,8 @@ const Appliances = () => {
   }, [subcategory]);
 
   const handleAddToCart = (product) => {
-    addToCart(product); // adds to localStorage cart
-    setCartCount(getCartCount()); // update cart count dynamically
+    addToCart(product);
+    setCartCount(getCartCount());
     alert(`${product.name} added to cart!`);
   };
 

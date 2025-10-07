@@ -1,11 +1,12 @@
+// src/Pages/Electronics.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import AddToCartButton from "../components/AddToCartButton";
 import { getCartCount } from "../utils/cart";
 
-// Example product data
-const electronicsData = {
+// ✅ Named export for product data
+export const electronicsData = {
   Smartphones: [
     { id: 1, name: "iPhone 14 Pro", price: 120000, image: "https://via.placeholder.com/150" },
     { id: 2, name: "Samsung Galaxy S23", price: 95000, image: "https://via.placeholder.com/150" },

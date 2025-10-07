@@ -1,10 +1,11 @@
+// src/Pages/Beauty.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
-import { addToCart } from "../utils/cart"; // Import cart helper
+import { addToCart } from "../utils/cart";
 
-// 9 Example products per subcategory
-const beautyData = {
+// ✅ Exported product data for Header import
+export const beautyData = {
   Makeup: [
     { id: 1, name: "Lipstick Set", price: 1200, image: "https://via.placeholder.com/150" },
     { id: 2, name: "Eyeliner", price: 499, image: "https://via.placeholder.com/150" },
@@ -37,7 +38,7 @@ const beautyData = {
     { id: 25, name: "Leave-in Conditioner", price: 599, image: "https://via.placeholder.com/150" },
     { id: 26, name: "Dry Shampoo", price: 399, image: "https://via.placeholder.com/150" },
     { id: 27, name: "Hair Gel", price: 299, image: "https://via.placeholder.com/150" },
-  ], 
+  ],
   Fragrances: [
     { id: 28, name: "Perfume", price: 1999, image: "https://via.placeholder.com/150" },
     { id: 29, name: "Body Mist", price: 699, image: "https://via.placeholder.com/150" },
@@ -63,9 +64,8 @@ const Beauty = () => {
     }
   }, [subcategory]);
 
-  // Add to cart handler
   const handleAddToCart = (product) => {
-    addToCart(product); // This updates localStorage and dispatches cartUpdated event
+    addToCart(product);
   };
 
   return (

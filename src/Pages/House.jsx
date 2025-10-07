@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 
-// Example Home Products
-const houseData = {
+// ✅ Named export for product data
+export const houseData = {
   Furniture: [
     { id: 1, name: "Sofa Set", price: 25000, image: "https://via.placeholder.com/150" },
     { id: 2, name: "Dining Table", price: 18000, image: "https://via.placeholder.com/150" },
@@ -75,4 +75,4 @@ const House = () => {
   );
 };
 
-export default House;  
+export default House;

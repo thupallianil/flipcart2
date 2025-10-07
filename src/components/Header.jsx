@@ -4,15 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
 import { User, Heart, Gift, Package, Star, Crown } from "lucide-react";
 
-// ✅ Named imports from pages
+// Named imports from pages
 import { houseData } from "../Pages/House.jsx";
 import { beautyData } from "../Pages/Beauty.jsx";
 import { electronicsData } from "../Pages/Electronics.jsx";
 import { appliancesData } from "../Pages/Appliances.jsx";
-import { fashionData } from "../Pages/Fashion.jsx"; // named import
+import { fashionData } from "../Pages/Fashion.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const [cartCount, setCartCount] = useState(
     () =>
       JSON.parse(localStorage.getItem("cart"))?.reduce(
@@ -20,9 +21,11 @@ const Header = () => {
         0
       ) || 0
   );
+
   const [loggedInUser, setLoggedInUser] = useState(
     () => JSON.parse(localStorage.getItem("loggedInUser")) || null
   );
+
   const [showAuth, setShowAuth] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,7 +46,6 @@ const Header = () => {
     ...addCategory(fashionData, "Fashion"),
   ];
 
-  // Save merged products in localStorage
   useEffect(() => {
     localStorage.setItem("allProducts", JSON.stringify(allProducts));
   }, []);
@@ -64,6 +66,8 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
+    setShowDropdown(false);
+    navigate("/");
   };
 
   // Live search
@@ -100,6 +104,7 @@ const Header = () => {
       )}
 
       <header className="bg-blue-600 p-3 flex items-center justify-between relative">
+        {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             src="/images.png"
@@ -108,6 +113,7 @@ const Header = () => {
           />
         </Link>
 
+        {/* Search */}
         <div className="flex-1 mx-4 relative">
           <input
             type="text"
@@ -122,7 +128,7 @@ const Header = () => {
             🔍
           </span>
 
-          {/* Search Results Overlay */}
+          {/* Search Results */}
           {searchQuery && searchResults.length > 0 && (
             <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 max-h-96 overflow-y-auto rounded-b-lg mt-1">
               <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -159,6 +165,7 @@ const Header = () => {
           )}
         </div>
 
+        {/* User & Cart */}
         <div className="flex items-center gap-6 text-white font-medium relative">
           <div
             className="relative"
@@ -195,9 +202,13 @@ const Header = () => {
                 )}
 
                 <ul className="space-y-2 text-sm">
+                  {/* ✅ My Profile */}
                   <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
-                    <User size={18} /> My Profile
+                    <Link to="/profile" className="flex items-center gap-2">
+                      <User size={18} /> My Profile
+                    </Link>
                   </li>
+
                   <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
                     <Crown size={18} /> Flipkart Plus Zone
                   </li>

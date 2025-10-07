@@ -4,15 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
 import { User, Heart, Gift, Package, Star, Crown } from "lucide-react";
 
-// ✅ Correct named imports from pages
+// ✅ Named imports from pages
 import { houseData } from "../Pages/House.jsx";
 import { beautyData } from "../Pages/Beauty.jsx";
 import { electronicsData } from "../Pages/Electronics.jsx";
 import { appliancesData } from "../Pages/Appliances.jsx";
+import { fashionData } from "../Pages/Fashion.jsx"; // named import
 
 const Header = () => {
   const navigate = useNavigate();
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(
+    () =>
+      JSON.parse(localStorage.getItem("cart"))?.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+      ) || 0
+  );
   const [loggedInUser, setLoggedInUser] = useState(
     () => JSON.parse(localStorage.getItem("loggedInUser")) || null
   );
@@ -25,7 +32,7 @@ const Header = () => {
   // Merge all products with category info
   const addCategory = (data, categoryName) =>
     Object.entries(data).flatMap(([subcategory, items]) =>
-      items.map(item => ({ ...item, category: categoryName, subcategory }))
+      items.map((item) => ({ ...item, category: categoryName, subcategory }))
     );
 
   const allProducts = [
@@ -33,6 +40,7 @@ const Header = () => {
     ...addCategory(beautyData, "Beauty"),
     ...addCategory(electronicsData, "Electronics"),
     ...addCategory(appliancesData, "Appliances"),
+    ...addCategory(fashionData, "Fashion"),
   ];
 
   // Save merged products in localStorage
@@ -58,7 +66,7 @@ const Header = () => {
     setLoggedInUser(null);
   };
 
-  // Live search: letters, words, product name, category or subcategory
+  // Live search
   useEffect(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) {
@@ -68,10 +76,11 @@ const Header = () => {
     }
 
     const storedProducts = JSON.parse(localStorage.getItem("allProducts")) || [];
-    const results = storedProducts.filter(item =>
-      item.name.toLowerCase().includes(query) ||
-      item.subcategory.toLowerCase().includes(query) ||
-      item.category.toLowerCase().includes(query)
+    const results = storedProducts.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query) ||
+        item.subcategory.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
     );
 
     setSearchResults(results);
@@ -112,6 +121,42 @@ const Header = () => {
           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             🔍
           </span>
+
+          {/* Search Results Overlay */}
+          {searchQuery && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 max-h-96 overflow-y-auto rounded-b-lg mt-1">
+              <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {searchResults.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white p-2 rounded-lg shadow hover:shadow-lg transition-shadow text-center cursor-pointer"
+                    onClick={() =>
+                      navigate(`/${item.category}/${item.subcategory}`)
+                    }
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-24 object-cover rounded-md mb-1"
+                    />
+                    <h3 className="text-gray-800 font-semibold text-sm truncate">
+                      {item.name}
+                    </h3>
+                    <p className="text-gray-500 text-xs">
+                      {item.category} / {item.subcategory}
+                    </p>
+                    <p className="text-blue-600 font-bold mt-1">₹{item.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {searchQuery && searchDone && searchResults.length === 0 && (
+            <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 p-4 rounded-b-lg text-center text-gray-600 mt-1">
+              ❌ Product not available
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-6 text-white font-medium relative">
@@ -192,42 +237,6 @@ const Header = () => {
           </Link>
         </div>
       </header>
-
-      {/* Search Results */}
-      {searchQuery && (
-        <div className="p-6 bg-gray-100">
-          {searchResults.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {searchResults.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow text-center cursor-pointer"
-                  onClick={() => navigate(`/${item.category}/${item.subcategory}`)}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-40 object-cover rounded-md mb-2"
-                  />
-                  <h3 className="text-gray-800 font-semibold text-sm truncate">
-                    {item.name}
-                  </h3>
-                  <p className="text-gray-500 text-xs">
-                    {item.category} / {item.subcategory}
-                  </p>
-                  <p className="text-blue-600 font-bold mt-1">₹{item.price}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            searchDone && (
-              <p className="text-center text-gray-600 mt-4 text-lg font-medium">
-                ❌ Product not available
-              </p>
-            )
-          )}
-        </div>
-      )}
     </>
   );
 };

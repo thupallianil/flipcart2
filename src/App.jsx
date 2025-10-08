@@ -1,8 +1,10 @@
+// src/App.jsx
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Components
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import MyProfile from "./components/MyProfile";
 
 // Pages
@@ -24,9 +26,11 @@ function App() {
   return (
     <Router>
       {showWelcome ? (
+        // 👋 Welcome screen appears first
         <Welcome onFinish={() => setShowWelcome(false)} />
       ) : (
         <>
+         
 
           <Routes>
             {/* Home */}
@@ -48,8 +52,11 @@ function App() {
             <Route path="/about" element={<About />} />
 
             {/* Profile */}
-            <Route path="/profile" element={<MyProfile />} /> {/* ✅ Correct path */}
+            <Route path="/profile" element={<MyProfile />} />
           </Routes>
+
+          {/* 🦶 Footer stays at bottom for all pages */}
+          <Footer />
         </>
       )}
     </Router>

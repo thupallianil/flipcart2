@@ -103,7 +103,7 @@ const Header = () => {
         />
       )}
 
-      <header className="bg-blue-600 p-3 flex items-center justify-between relative">
+      <header className="bg-gray-500 p-3 flex items-center justify-between relative">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img

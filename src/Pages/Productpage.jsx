@@ -1,7 +1,7 @@
 // src/Pages/ProductsPage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { products } from "../Data/products"; // All products data
+import { products } from "../Data/products";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 
@@ -32,31 +32,38 @@ const ProductsPage = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-50 to-blue-100">
       <Header cartCount={cartCount} />
       <Navbar />
 
-      <div className="p-4">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="p-6">
+        <h2 className="text-3xl font-extrabold mb-6 text-gray-800">
           {decodeURIComponent(category)} / {decodeURIComponent(subcategory)}
         </h2>
 
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map((p) => (
-              <div key={p.id} className="border p-3 rounded shadow">
+              <div
+                key={p.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 hover:shadow-2xl"
+              >
                 <Link to={`/product/${p.id}`}>
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-40 object-cover mb-2 rounded"
-                  />
-                  <h3 className="font-semibold">{p.name}</h3>
-                  <p className="text-blue-600 font-bold">₹{p.price}</p>
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-2 text-white">
+                      <h3 className="font-semibold text-lg">{p.name}</h3>
+                      <p className="font-bold text-blue-400 text-sm">₹{p.price}</p>
+                    </div>
+                  </div>
                 </Link>
                 <button
                   onClick={() => addToCart(p)}
-                  className="mt-2 w-full bg-blue-600 text-white py-1 rounded hover:bg-blue-700"
+                  className="w-full py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-b-xl hover:from-blue-600 hover:to-blue-700 transition-colors"
                 >
                   Add to Cart
                 </button>
@@ -64,7 +71,7 @@ const ProductsPage = () => {
             ))}
           </div>
         ) : (
-          <p>No products found in this category.</p>
+          <p className="text-gray-500 text-lg mt-4">No products found in this category.</p>
         )}
       </div>
     </div>

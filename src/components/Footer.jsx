@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Facebook,
   Twitter,
@@ -14,31 +15,30 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 mt-10">
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* --- About --- */}
+        {/* About */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-3">About</h3>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-blue-400">Contact Us</a></li>
-            <li><a href="#" className="hover:text-blue-400">About Us</a></li>
+            <li><Link to="/about" className="hover:text-blue-400">About Us</Link></li>
             <li><a href="#" className="hover:text-blue-400">Careers</a></li>
             <li><a href="#" className="hover:text-blue-400">Flipkart Stories</a></li>
             <li><a href="#" className="hover:text-blue-400">Press</a></li>
           </ul>
         </div>
 
-        {/* --- Help --- */}
+        {/* Customer Service */}
         <div>
-          <h3 className="text-white text-lg font-semibold mb-3">Help</h3>
+          <h3 className="text-white text-lg font-semibold mb-3">Customer Service</h3>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-blue-400">Payments</a></li>
-            <li><a href="#" className="hover:text-blue-400">Shipping</a></li>
-            <li><a href="#" className="hover:text-blue-400">Cancellation & Returns</a></li>
-            <li><a href="#" className="hover:text-blue-400">FAQ</a></li>
-            <li><a href="#" className="hover:text-blue-400">Report Infringement</a></li>
+            <li><Link to="/payments" className="hover:text-blue-400">Payments</Link></li>
+            <li><Link to="/shipping" className="hover:text-blue-400">Shipping</Link></li>
+            <li><Link to="/cancellation" className="hover:text-blue-400">Cancellation & Returns</Link></li>
+            <li><Link to="/faq" className="hover:text-blue-400">FAQ</Link></li>
+            <li><Link to="/report" className="hover:text-blue-400">Report Infringement</Link></li>
           </ul>
         </div>
 
-        {/* --- Policy --- */}
+        {/* Policy */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-3">Policy</h3>
           <ul className="space-y-2">
@@ -50,18 +50,18 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* --- Contact --- */}
+        {/* Contact */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-3">Contact</h3>
           <ul className="space-y-2">
             <li className="flex items-center gap-2">
-              <MapPin size={18} /> Hyderabad, India
+              <MapPin size={18} /> Andhra Pradesh, India
             </li>
             <li className="flex items-center gap-2">
               <Mail size={18} /> support@flipkartclone.com
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={18} /> +91 98765 43210
+              <Phone size={18} /> +91 6303068697
             </li>
           </ul>
           <div className="flex gap-4 mt-4">
@@ -73,7 +73,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* --- Bottom Bar --- */}
+      {/* Bottom Bar */}
       <div className="border-t border-gray-700 py-4 text-center text-sm text-gray-400">
         © {new Date().getFullYear()} Flipkart Clone — Designed by <span className="text-blue-400 font-semibold">Anil Thupalli</span>
       </div>

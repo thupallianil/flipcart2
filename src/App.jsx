@@ -16,46 +16,52 @@ import About from "./Pages/About";
 import Welcome from "./Pages/Welcome";
 import Electronics from "./Pages/Electronics";
 import Fashion from "./Pages/Fashion";
-import House from "./Pages/House";
 import Beauty from "./Pages/Beauty";
 import Appliances from "./Pages/Appliances";
+import SellerDashboard from "./Pages/SellerDashboard"; // ✅ added
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
+  // ✅ Get logged-in user info
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
   return (
     <Router>
       {showWelcome ? (
-        // 👋 Welcome screen appears first
+        // 👋 Show welcome screen first
         <Welcome onFinish={() => setShowWelcome(false)} />
       ) : (
         <>
          
-
           <Routes>
-            {/* Home */}
+            {/* 🏠 Home */}
             <Route path="/" element={<Home />} />
 
-            {/* Product Details */}
+            {/* 📦 Product Details */}
             <Route path="/product/:id" element={<ProductDetails />} />
 
-            {/* Category Pages */}
+            {/* 🛍️ Category Pages */}
             <Route path="/products/Electronics/:subcategory" element={<Electronics />} />
             <Route path="/products/Fashion/:subcategory" element={<Fashion />} />
-            <Route path="/products/Home/:subcategory" element={<House />} />
             <Route path="/products/Beauty/:subcategory" element={<Beauty />} />
             <Route path="/products/Appliances/:subcategory" element={<Appliances />} />
 
-            {/* Cart / Checkout / About */}
+            {/* 🛒 Cart / Checkout / About */}
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/about" element={<About />} />
 
-            {/* Profile */}
+            {/* 👤 Profile */}
             <Route path="/profile" element={<MyProfile />} />
+
+            {/* 🧰 Seller Dashboard (Only visible if seller) */}
+            {user?.role === "seller" && (
+              <Route path="/seller" element={<SellerDashboard />} />
+            )}
           </Routes>
 
-          {/* 🦶 Footer stays at bottom for all pages */}
+          {/* 🦶 Footer for all pages */}
           <Footer />
         </>
       )}

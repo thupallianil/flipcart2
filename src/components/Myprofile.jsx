@@ -9,6 +9,7 @@ const MyProfile = () => {
       address: "",
       membership: "Silver",
       points: 250,
+      role: "buyer", // ✅ Added default role
     }
   );
 
@@ -27,6 +28,14 @@ const MyProfile = () => {
     localStorage.setItem("loggedInUser", JSON.stringify(user));
   }, [user]);
 
+  // ✅ Handle Role Toggle (Buyer / Seller)
+  const toggleRole = () => {
+    const newRole = user.role === "buyer" ? "seller" : "buyer";
+    const updatedUser = { ...user, role: newRole };
+    setUser(updatedUser);
+    localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-yellow-50 flex justify-center items-center p-6">
       <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl p-8 relative overflow-hidden border-t-8 border-purple-500">
@@ -42,10 +51,25 @@ const MyProfile = () => {
           />
           <h2 className="text-4xl font-extrabold text-purple-700 mt-4">{user.username}</h2>
           <p className="text-gray-600 text-sm">{user.email}</p>
+
+          {/* ✅ Role Display */}
+          <p className="mt-2 text-sm text-gray-700">
+            <span className="font-semibold text-purple-600">Role:</span>{" "}
+            {user.role === "buyer" ? "🛒 Buyer" : "🏷️ Seller"}
+          </p>
+
           <p className="mt-1 text-gray-700 text-sm">
             Membership: <span className="font-semibold text-pink-500">{user.membership}</span> | Points:{" "}
             <span className="font-semibold text-green-600">{user.points}</span>
           </p>
+
+          {/* ✅ Switch Role Button */}
+          <button
+            onClick={toggleRole}
+            className="mt-3 bg-yellow-400 text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition-all"
+          >
+            Switch to {user.role === "buyer" ? "Seller" : "Buyer"} Mode
+          </button>
         </div>
 
         {/* Summary Cards */}
@@ -106,27 +130,42 @@ const MyProfile = () => {
         </div>
 
         {/* Recent Orders */}
-        <div className="mt-12 relative z-10">
-          <h3 className="text-2xl font-bold text-purple-700 mb-6">Recent Orders</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
-              { name: "Wireless Headphones", price: "₹1500", status: "Delivered" },
-              { name: "Smart Watch", price: "₹2500", status: "Shipped" },
-              { name: "Sneakers", price: "₹3200", status: "Processing" },
-            ].map((order, idx) => (
-              <div
-                key={idx}
-                className="flex justify-between items-center bg-gradient-to-r from-purple-50 to-pink-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all"
-              >
-                <div>
-                  <p className="font-semibold text-gray-700">{order.name}</p>
-                  <p className="text-gray-500 text-sm">{order.status}</p>
+        {user.role === "buyer" && (
+          <div className="mt-12 relative z-10">
+            <h3 className="text-2xl font-bold text-purple-700 mb-6">Recent Orders</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { name: "Wireless Headphones", price: "₹1500", status: "Delivered" },
+                { name: "Smart Watch", price: "₹2500", status: "Shipped" },
+                { name: "Sneakers", price: "₹3200", status: "Processing" },
+              ].map((order, idx) => (
+                <div
+                  key={idx}
+                  className="flex justify-between items-center bg-gradient-to-r from-purple-50 to-pink-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all"
+                >
+                  <div>
+                    <p className="font-semibold text-gray-700">{order.name}</p>
+                    <p className="text-gray-500 text-sm">{order.status}</p>
+                  </div>
+                  <p className="font-bold text-pink-500">{order.price}</p>
                 </div>
-                <p className="font-bold text-pink-500">{order.price}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Seller View */}
+        {user.role === "seller" && (
+          <div className="mt-12 relative z-10">
+            <h3 className="text-2xl font-bold text-purple-700 mb-6">Seller Overview</h3>
+            <p className="text-gray-600 mb-4">
+              Welcome, <span className="font-semibold text-pink-500">{user.username}</span>! You can manage your products in the{" "}
+              <a href="/seller" className="text-purple-600 font-semibold hover:underline">
+                Seller Dashboard
+              </a>.
+            </p>
+          </div>
+        )}
 
         {/* Social Links */}
         <div className="mt-12 flex justify-center gap-8 relative z-10 text-lg font-semibold">

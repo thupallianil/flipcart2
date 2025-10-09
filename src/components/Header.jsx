@@ -5,7 +5,6 @@ import AuthModal from "./AuthModal";
 import { User, Heart, Gift, Package, Star, Crown } from "lucide-react";
 
 // Named imports from pages
-import { houseData } from "../Pages/House.jsx";
 import { beautyData } from "../Pages/Beauty.jsx";
 import { electronicsData } from "../Pages/Electronics.jsx";
 import { appliancesData } from "../Pages/Appliances.jsx";
@@ -39,7 +38,6 @@ const Header = () => {
     );
 
   const allProducts = [
-    ...addCategory(houseData, "House"),
     ...addCategory(beautyData, "Beauty"),
     ...addCategory(electronicsData, "Electronics"),
     ...addCategory(appliancesData, "Appliances"),
